@@ -1,6 +1,6 @@
 var express = require("express");
 var app = express();
-var port = 3000;
+//var port = 3000;
 var MongoClient = require('mongodb').MongoClient,
     messages;
 
@@ -19,7 +19,7 @@ app.get("/", function(req, res){
 
  
 /* Start server and listen */
-var io = require('socket.io').listen(app.listen(port));
+var io = require('socket.io').listen(app.listen(process.env.PORT || 3000));
 
 io.sockets.on('connection', function(socket) {
   // send message to the connecting socket
@@ -84,5 +84,5 @@ io.sockets.on('connection', function(socket) {
     io.sockets.emit('userDisconnect',{user:socket.name});
   });
 
-console.log("Listening on port " + port);
+console.log("Listening on port " + (process.env.PORT || 3000));
 });
